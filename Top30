@@ -1,0 +1,27 @@
+# Load the necessary libraries
+library(readxl)    # To read Excel files
+library(dplyr)     # For data manipulation
+library(ggplot2)   # For graphics
+
+# Read the Excel file
+datos <- read_excel("name_of_your_file.xlsx", sheet = 1, col_names = TRUE)
+
+# Select the column with the words (change ‘column_words’ if the name is different)
+words <- data$column_words  
+
+# Count the frequency of each word
+word_count <- as.data.frame(table(words))
+
+# Arrange the words by frequency and select the 30 most frequent ones
+top30_words <- word_count %>%
+  arrange(desc(Freq)) %>%
+  head(30)
+
+# Create the horizontal bar chart
+ggplot(top30_words, aes(x = reorder(words, Freq), y = Freq)) +
+  geom_bar(stat = "identity", fill = "#2E5F7F") +  # Colour of the bars
+  coord_flip() +  # Make the horizontal bars
+  labs(title = "Top 30 most repeated words",
+       x = "Words",
+       y = "Frecuency") +
+  theme_minimal()
