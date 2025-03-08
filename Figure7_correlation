@@ -1,0 +1,31 @@
+# Install and load the package if it is not already installed (figure 7)
+# install.packages("corrplot")
+library(corrplot)
+
+# Define the correlation matrix provided
+cor_matrix <- matrix(c(1.00, 0.08, 0.17, 0.10, 0.06, 0.09,
+                       0.08, 1.00, 0.95, 0.97, 0.30, 0.99,
+                       0.17, 0.95, 1.00, 0.93, 0.33, 0.97,
+                       0.10, 0.97, 0.93, 1.00, 0.34, 0.98,
+                       0.06, 0.30, 0.33, 0.35, 1.00, 0.29,
+                       0.09, 0.99, 0.97, 0.98, 0.29, 1.00), 
+                     nrow = 6, ncol = 6)
+
+# Define the names of the variables (you can customise these names if necessary)
+colnames(cor_matrix) <- rownames(cor_matrix) <- c(“Average rating, “Number “of ratings, “Number “of reviews, “Want “to read, “Reading, “Added “to shelves)
+
+# Define custom colours
+col_paleta <- colorRampPalette(c("#E0DDC7", "#3A5E7C"))(200)
+
+# Plot the correlation matrix with custom colours, coefficients inside each cell and white lines between cells
+corrplot(cor_matrix,        # Correlation matrix
+         method = "shade",   # Method for the correlation graph
+         type = "full",      # Chart style (also ‘upper’ and ‘lower’)
+         diag = TRUE,        # Include the diagonal
+         tl.col = "black",   # Colour of the labels
+         bg = "white",       # Background colour
+         title = "",         # Title
+         col = col_paleta,   # Personalised colour palette
+         addCoef.col = “White”, # Colour of the coefficient
+         number.cex = 0.8,   # Text size of the coefficients
+         addgrid.col = "white") # White lines between cells
